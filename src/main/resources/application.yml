@@ -1,0 +1,82 @@
+spring:
+  application:
+    name: datasource
+  profiles:
+    active: dev
+  datasource:
+    mysql:
+      url: jdbc:mysql://XXXX:3306/XXXXX
+      username: XXXXX
+      password: XXXXX
+      initialize: true
+      driver-class-name: com.mysql.jdbc.Driver
+      druid:
+        initial-size: 30
+        minIdle: 30
+        maxActive: 100
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        filters: stat,wall,log4j
+        aop-patterns: com.alex..service.*.*
+        remove-abandoned: true
+        use-local-session-state: true
+        use-global-data-source-stat: true
+        stat-view-servlet:
+          login-username: admin
+          login-password: admin
+        db-type: mysql
+    oracle:
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=XX.XX.XX.XX)(PORT=1524)))(CONNECT_DATA=(SERVICE_NAME=XXXX)))
+      username: XXXX
+      password: XXXX
+      druid:
+        initial-size: 30
+        minIdle: 30
+        maxActive: 200
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        filters: stat,wall,log4j
+        aop-patterns: com.smf..service.*.*
+        remove-abandoned: true
+        use-local-session-state: true
+        use-global-data-source-stat: true
+        stat-view-servlet:
+          login-username: admin
+          login-password: admin
+logging:
+  path: /usr/local
+  level: info
+server:
+  port: 8114
+
+info:
+  version: 1.0
+  name: ${spring.application.name}
+  status: UP
+mybatis:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+
+pagehelper:
+  offset-as-page-num: true
+  row-bounds-with-count: true
+  reasonable: false
+  page-size-zero: true
+  params: pageNum=start;pageSize=limit;
+  autoRuntimeDialect: true
